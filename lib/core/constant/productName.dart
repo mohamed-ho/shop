@@ -1,0 +1,9 @@
+const kProductId = "id";
+const kProductTitle ="title";
+const kProductPrice = "price";
+const kProductDescription = "description";
+const kProductCategory = "category";
+const kProductImage = "image";
+const kProductRating = "rating";
+const kProductRatingRate = "rate";
+const kProductRatingCount = "count";
