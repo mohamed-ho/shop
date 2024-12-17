@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/config/routes/app_routes.dart';
 import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
+import 'package:shop/features/home/presentation/widgets/drawer_widget.dart';
 import 'package:shop/features/home/presentation/widgets/home_loaded_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerWidget(),
       floatingActionButton: const CartFloatingActionButton(),
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
@@ -23,9 +25,7 @@ class HomeScreen extends StatelessWidget {
             return HomeLoadedWidget(category: ['All', ...state.categories]);
           } else {
             BlocProvider.of<ProductCubit>(context).getCategories();
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return HomeLoadedWidget(category: ['All', ...demoCategories]);
           }
         },
       ),
@@ -46,3 +46,13 @@ class CartFloatingActionButton extends StatelessWidget {
     );
   }
 }
+
+final demoCategories = [
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+  'fsdfsdf sdf ',
+];

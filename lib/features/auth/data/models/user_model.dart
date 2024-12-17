@@ -30,7 +30,8 @@ class UserModel extends User {
       'name': NameModel.fromName(name).toJson(),
       'password': password,
       'phone': phone,
-      'username': username
+      'username': username,
+      'id': 1,
     };
   }
 

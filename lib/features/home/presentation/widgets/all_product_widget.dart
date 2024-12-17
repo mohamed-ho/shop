@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/dependent_enjection.dart';
 import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
 import 'package:shop/features/home/presentation/widgets/custom_grid_view.dart';
+import 'package:shop/features/home/presentation/widgets/product_in_category_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class AllProductWidget extends StatelessWidget {
   const AllProductWidget({super.key});
@@ -14,9 +16,7 @@ class AllProductWidget extends StatelessWidget {
       child: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           if (state is ProductLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return Skeletonizer(child: CustomGridView(products: list));
           } else if (state is ProductErrorState) {
             return const Center(
               child: Text('there are error'),

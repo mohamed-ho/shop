@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop/features/cart/domain/entities/cart.dart';
 import 'package:shop/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shop/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:shop/features/cart/presentation/widgets/search_range_widget.dart';

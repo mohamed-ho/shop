@@ -63,45 +63,50 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: .38.sw,
-                  backgroundColor: AppColors.mainAppColor.withOpacity(.7),
-                  child: Image.asset(
-                    'assets/images/shop.png',
-                    width: .5.sw,
-                    height: .5.sw,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 20.h,
                   ),
-                ),
-                LoginBlocWidget(
-                  passWordController: passWordController,
-                  userNameController: userNameController,
-                  passwordIsHide: isHide,
-                  showAndHidePassword: () {
-                    setState(() {
-                      isHide = !isHide;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                CustomElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        BlocProvider.of<AuthCubit>(context).login(
-                            email: userNameController.text,
-                            password: passWordController.text);
-                      }
+                  CircleAvatar(
+                    radius: .38.sw,
+                    backgroundColor: AppColors.mainAppColor.withOpacity(.7),
+                    child: Image.asset(
+                      'assets/images/shop.png',
+                      width: .5.sw,
+                      height: .5.sw,
+                    ),
+                  ),
+                  LoginBlocWidget(
+                    passWordController: passWordController,
+                    userNameController: userNameController,
+                    passwordIsHide: isHide,
+                    showAndHidePassword: () {
+                      setState(() {
+                        isHide = !isHide;
+                      });
                     },
-                    buttonText: 'Login'),
-                SizedBox(
-                  height: 16.h,
-                ),
-                const DoNotHaveAccountWidget()
-              ],
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  CustomElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          BlocProvider.of<AuthCubit>(context).login(
+                              email: userNameController.text,
+                              password: passWordController.text);
+                        }
+                      },
+                      buttonText: 'Login'),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  const DoNotHaveAccountWidget()
+                ],
+              ),
             ),
           ),
         ),

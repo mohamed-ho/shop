@@ -6,6 +6,8 @@ import 'package:shop/features/cart/domain/entities/card_product.dart';
 
 import 'package:shop/features/home/data/models/product_model.dart';
 import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
+import 'package:shop/features/home/presentation/widgets/product_in_category_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class GetProductWidget extends StatelessWidget {
   const GetProductWidget(
@@ -33,9 +35,7 @@ class GetProductWidget extends StatelessWidget {
                 ),
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return Skeletonizer(child: child(list[0]));
             }
           },
         ),

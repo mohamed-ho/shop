@@ -1,5 +1,7 @@
 import 'package:shop/core/constant/end_points.dart';
 import 'package:shop/core/server_service/http_service.dart';
+import 'package:shop/dependent_enjection.dart';
+import 'package:shop/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:shop/features/auth/data/models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
@@ -8,6 +10,7 @@ abstract class AuthRemoteDataSource {
   Future<void> updateUser(UserModel user);
   Future<void> delteUser(int id);
   Future<void> login(String email, String password);
+  Future<void> logout();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -38,11 +41,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       'username': username,
       'password': password
     });
+    await ls<AuthLocalDataSource>().addUserData(await getUserData(1));
+    await ls<AuthLocalDataSource>().saveLogin();
   }
 
   @override
   Future<void> updateUser(UserModel user) async {
     await httpService.post(
         url: EndPoints.updateUserUrl(id: user.id), data: user.toJson());
+  }
+
+  @override
+  Future<void> logout() async {
+    await ls<AuthLocalDataSource>().logout();
   }
 }

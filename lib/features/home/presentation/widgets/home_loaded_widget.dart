@@ -6,6 +6,7 @@ import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
 import 'package:shop/features/home/presentation/widgets/all_product_widget.dart';
 import 'package:shop/features/home/presentation/widgets/custom_tab_bar.dart';
 import 'package:shop/features/home/presentation/widgets/product_in_category_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeLoadedWidget extends StatefulWidget {
   const HomeLoadedWidget({super.key, required this.category});
