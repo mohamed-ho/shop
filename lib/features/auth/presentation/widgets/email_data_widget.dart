@@ -8,10 +8,12 @@ class EmailDataWidget extends StatelessWidget {
       {super.key,
       required this.emailController,
       required this.passwordController,
-      required this.userNameController});
+      required this.userNameController,
+      required this.phoneController});
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController userNameController;
+  final TextEditingController phoneController;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,7 +68,29 @@ class EmailDataWidget extends StatelessWidget {
                 return 'please enter valid user Name';
               }
               return null;
-            })
+            }),
+        CustomTextFormField(
+            hintText: 'Phone Number',
+            labelText: "Phone Number",
+            maxLength: 11,
+            keyBoardType: TextInputType.number,
+            suffixIcon: const Icon(
+              Icons.phone,
+              color: Colors.grey,
+            ),
+            validator: (value) {
+              if (value == null && value!.isEmpty) {
+                return "please Enter you Phone number";
+              } else if (int.tryParse(value) == null) {
+                return "please enter valid number";
+              } else if (value.length < 11) {
+                return "phone number must be 11 digit";
+              } else if (value.substring(0, 2) != '01') {
+                return "please enter valid number ";
+              }
+              return null;
+            },
+            controller: phoneController),
       ],
     );
   }

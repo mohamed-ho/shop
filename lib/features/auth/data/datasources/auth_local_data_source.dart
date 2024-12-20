@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop/core/constant/shared_preference_keys.dart';
 import 'package:shop/core/failure/failure.dart';
 import 'package:shop/features/auth/data/models/user_model.dart';
-import 'package:shop/features/auth/domain/entities/user.dart';
 
 abstract class AuthLocalDataSource {
   Future<void> saveLogin();

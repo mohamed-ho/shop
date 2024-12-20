@@ -104,7 +104,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  const DoNotHaveAccountWidget()
+                  const DoNotHaveAccountWidget(),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  CustomElevatedButton(
+                    onPressed: () => Navigator.pushNamed(
+                        context, AppRoutes.adminLoginScreen),
+                    buttonText: 'Login As User',
+                    icon: const Icon(Icons.arrow_forward),
+                  )
                 ],
               ),
             ),

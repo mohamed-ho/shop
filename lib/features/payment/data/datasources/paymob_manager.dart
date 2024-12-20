@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shop/core/constant/paymob_keys.dart';
 import 'package:shop/core/failure/failure.dart';
+import 'package:shop/features/auth/domain/entities/user.dart';
 
 abstract class PaymobManager {
   static Future<String> _authenticate() async {
@@ -17,14 +18,10 @@ abstract class PaymobManager {
         final data = jsonDecode(response.body);
         return data['token'];
       } else {
-        print(
-            'failed to authenticate with paymob==================================================');
         throw Exception(
             ServerFailure(message: "failed to authenticate with paymob "));
       }
     } catch (e) {
-      print(
-          'failed to authenticate with paymob==================================================');
       throw Exception(
           ServerFailure(message: "failed to authenticate with paymob "));
     }
@@ -47,13 +44,9 @@ abstract class PaymobManager {
         final data = jsonDecode(response.body);
         return data['id'].toString(); // Order ID
       } else {
-        print(
-            'Failed to create order==================================================${response.statusCode}');
         throw Exception(ServerFailure(message: "Failed to create order"));
       }
     } catch (e) {
-      print(
-          'Failed to create order==================================================${e.toString()}');
       throw Exception(ServerFailure(message: "Failed to create order"));
     }
   }
@@ -61,7 +54,8 @@ abstract class PaymobManager {
   static Future<String> generatePaymentKey(
       {required double amount,
       String currency = "EGP",
-      required int integrationId}) async {
+      required int integrationId,
+      required User user}) async {
     try {
       final response = await http.post(
         Uri.parse('https://accept.paymob.com/api/acceptance/payment_keys'),
@@ -74,17 +68,17 @@ abstract class PaymobManager {
           'currency': 'EGP',
           'order_id': await _createOrder(amount: amount, currency: currency),
           'billing_data': {
-            'first_name': 'John',
-            'last_name': 'Doe',
-            'phone_number': '+201234567890',
-            'email': 'john.doe@example.com',
+            'first_name': user.name.firstName,
+            'last_name': user.name.lastName,
+            'phone_number': user.phone,
+            'email': user.email,
             "apartment": "NA",
             "floor": "NA",
-            "street": "NA",
-            "building": "NA",
+            "street": user.address.street,
+            "building": user.address.number,
             "shipping_method": "NA",
             "postal_code": "NA",
-            "city": "NA",
+            "city": user.address.city,
             "country": "NA",
             "state": "NA"
           },
@@ -95,14 +89,10 @@ abstract class PaymobManager {
         final data = jsonDecode(response.body);
         return data['token']; // Payment key
       } else {
-        print(
-            'Failed to generate payment key==================================================${response.statusCode}');
         throw Exception(
             ServerFailure(message: 'Failed to generate payment key'));
       }
     } catch (e) {
-      print(
-          'Failed to generate payment key==================================================${e.toString()}');
       throw Exception(ServerFailure(message: 'Failed to generate payment key'));
     }
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop/config/routes/app_routes.dart';
+import 'package:shop/core/constant/app_colors.dart';
 import 'package:shop/dependent_enjection.dart';
 import 'package:shop/features/auth/presentation/cubit/auth_cubit.dart';
 
@@ -45,6 +46,22 @@ class CustomDrawerBady extends StatelessWidget {
             children: [
               ListTile(
                 title: Text(
+                  'Edit profile',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                subtitle: Text(
+                  'Edit you profile data ',
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                ),
+                leading: Icon(Icons.person_2_outlined,
+                    size: 30.w, color: AppColors.mainAppColor),
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  Navigator.pushNamed(context, AppRoutes.editProfileScreen);
+                },
+              ),
+              ListTile(
+                title: Text(
                   'Logout',
                   style: TextStyle(fontSize: 16.sp),
                 ),
@@ -52,8 +69,9 @@ class CustomDrawerBady extends StatelessWidget {
                   'logout from shop market',
                   style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                 ),
-                leading: const Icon(
+                leading: Icon(
                   Icons.logout,
+                  size: 30.w,
                   color: Colors.red,
                 ),
                 onTap: () {

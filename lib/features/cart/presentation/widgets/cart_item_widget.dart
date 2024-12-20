@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:shop/features/cart/domain/entities/cart.dart';
+import 'package:shop/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shop/features/cart/presentation/widgets/product_in_old_cart.dart';
 import 'package:shop/features/cart/presentation/widgets/get_product_widget.dart';
 
@@ -28,7 +30,9 @@ class CartItemWidget extends StatelessWidget {
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<CartCubit>(context).deleteCart(cart.id);
+                    },
                     icon: const Icon(
                       Icons.delete,
                       color: Colors.red,
@@ -40,7 +44,7 @@ class CartItemWidget extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisSize: MainAxisSize.min,
+                //mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: cart.cartProducts.map((cartProduct) {
                   return GetProductWidget(

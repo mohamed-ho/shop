@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/config/routes/app_routes.dart';
-import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
+import 'package:shop/features/home/presentation/cubit/cubit/category_cubit.dart';
 import 'package:shop/features/home/presentation/widgets/drawer_widget.dart';
 import 'package:shop/features/home/presentation/widgets/home_loaded_widget.dart';
 
@@ -13,19 +13,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: const DrawerWidget(),
       floatingActionButton: const CartFloatingActionButton(),
-      body: BlocBuilder<ProductCubit, ProductState>(
+      body: BlocBuilder<CategoryCubit, CategoryState>(
         builder: (context, state) {
-          if (state is ProductLoadingState) {
+          if (state is CategoryLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is ProductErrorState) {
+          } else if (state is CategoryErrorState) {
             return Text('you have error ${state.message}');
-          } else if (state is ProductGetCategories) {
-            return HomeLoadedWidget(category: ['All', ...state.categories]);
+          } else if (state is CategoryGetedState) {
+            return HomeLoadedWidget(category: state.categories);
           } else {
-            BlocProvider.of<ProductCubit>(context).getCategories();
-            return HomeLoadedWidget(category: ['All', ...demoCategories]);
+            BlocProvider.of<CategoryCubit>(context).getAllCategories();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

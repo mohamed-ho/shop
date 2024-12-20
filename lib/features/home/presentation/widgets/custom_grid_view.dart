@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/features/home/data/models/product_model.dart';
-import 'package:shop/widget/cardShop.dart';
+import 'package:shop/features/home/presentation/widgets/cardShop.dart';
 
 class CustomGridView extends StatelessWidget {
   const CustomGridView({super.key, required this.products});

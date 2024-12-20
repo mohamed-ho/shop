@@ -6,7 +6,7 @@ class ProductModal {
   final String title;
   final double price;
   final String description;
-  final String category;
+  final int category;
   final String image;
   final RateModel? rate;
   ProductModal(
@@ -20,11 +20,11 @@ class ProductModal {
 
   factory ProductModal.fromJson(jsonData) {
     return ProductModal(
-        id: jsonData[kProductId],
-        title: jsonData[kProductTitle],
-        price: jsonData[kProductPrice].toDouble(),
-        description: jsonData[kProductDescription],
-        category: jsonData[kProductCategory],
+        id: jsonData['id'],
+        title: jsonData['title'],
+        price: double.parse(jsonData['price']),
+        description: jsonData['description'],
+        category: jsonData['category_id'],
         image: jsonData[kProductImage],
         rate: jsonData['rating'] == null
             ? null

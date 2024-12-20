@@ -9,8 +9,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   ProductRepositoryImpl({required this.productRemoteDataSource});
   @override
-  Future<Either<Failure, ProductModal>> addNewProduct(
-      ProductModal product) async {
+  Future<Either<Failure, void>> addNewProduct(ProductModal product) async {
     try {
       final result = await productRemoteDataSource.addProduct(product);
       return Right(result);
@@ -40,33 +39,11 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<String>>> getCategory() async {
-    try {
-      final result = await productRemoteDataSource.getCategories();
-      return Right(result);
-    } on ServerFailure catch (e) {
-      return Left(e);
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ProductModal>>> getLimitProduct(
-      int numberOfProduct) async {
-    try {
-      final result =
-          await productRemoteDataSource.getLimitProducts(numberOfProduct);
-      return Right(result);
-    } on ServerFailure catch (e) {
-      return Left(e);
-    }
-  }
-
-  @override
   Future<Either<Failure, List<ProductModal>>> getProductInCategory(
-      String category) async {
+      int categoryId) async {
     try {
       final result =
-          await productRemoteDataSource.getProductInCategory(category);
+          await productRemoteDataSource.getProductInCategory(categoryId);
       return Right(result);
     } on ServerFailure catch (e) {
       return Left(e);
@@ -84,8 +61,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, ProductModal>> updateProduct(
-      ProductModal product) async {
+  Future<Either<Failure, void>> updateProduct(ProductModal product) async {
     try {
       final result = await productRemoteDataSource.updateProduct(product);
       return Right(result);

@@ -7,7 +7,7 @@ class GetProductInCategoryUsecase {
   final ProductRepository productRepository;
 
   GetProductInCategoryUsecase({required this.productRepository});
-  Future<Either<Failure, List<ProductModal>>> call(String category) async {
+  Future<Either<Failure, List<ProductModal>>> call(int category) async {
     return await productRepository.getProductInCategory(category);
   }
 }

@@ -54,18 +54,9 @@ class CartRepositoryImpl implements CartRepository {
   @override
   Future<Either<Failure, List<Cart>>> getCartItemsOfMeanUser(int userId) async {
     try {
+      print(
+          'you are here please check you id $id=================================');
       final result = await cartRemoteDataSource.getCartsOfMeanUser(userId);
-      return Right(result);
-    } on ServerFailure catch (e) {
-      return Left(e);
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Cart>>> getLimitCartItem(
-      int numberOfCartItem) async {
-    try {
-      final result = await cartRemoteDataSource.getLimitCarts(numberOfCartItem);
       return Right(result);
     } on ServerFailure catch (e) {
       return Left(e);
@@ -83,10 +74,11 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateCartItem(Cart cartItem) async {
+  Future<Either<Failure, List<Cart>>> getUserCartsInRangeDate(
+      int userId, DateTime start, DateTime end) async {
     try {
       final result =
-          await cartRemoteDataSource.updateCart(CartModel.fromCart(cartItem));
+          await cartRemoteDataSource.getUserCartInRangeDate(userId, start, end);
       return Right(result);
     } on ServerFailure catch (e) {
       return Left(e);

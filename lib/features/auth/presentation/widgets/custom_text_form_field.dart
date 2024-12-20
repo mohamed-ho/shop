@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
       required this.suffixIcon,
       required this.validator,
       required this.controller,
+      this.maxLength,
       this.keyBoardType});
   final String labelText;
   final String hintText;
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final TextInputType? keyBoardType;
+  final int? maxLength;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,6 +31,7 @@ class CustomTextFormField extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           TextFormField(
+            maxLength: maxLength,
             keyboardType: keyBoardType,
             controller: controller,
             validator: validator,

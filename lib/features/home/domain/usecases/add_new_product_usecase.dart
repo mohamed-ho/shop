@@ -7,7 +7,7 @@ class AddNewProductUsecase {
   final ProductRepository productRepository;
 
   AddNewProductUsecase({required this.productRepository});
-  Future<Either<Failure, ProductModal>> call(ProductModal product) async {
+  Future<Either<Failure, void>> call(ProductModal product) async {
     return await productRepository.addNewProduct(product);
   }
 }

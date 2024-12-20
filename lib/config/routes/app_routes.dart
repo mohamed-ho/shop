@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/dependent_enjection.dart';
+import 'package:shop/features/admin/presentation/cubit/admin_cubit.dart';
+import 'package:shop/features/admin/presentation/pages/admin_home_Screen.dart';
+import 'package:shop/features/admin/presentation/pages/admin_login_screen.dart';
+import 'package:shop/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:shop/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:shop/features/auth/presentation/pages/login_screen.dart';
 import 'package:shop/features/auth/presentation/pages/signup_screen.dart';
 
 import 'package:shop/features/cart/presentation/cubit/cart_cubit.dart';
+
+import 'package:shop/features/home/presentation/cubit/cubit/category_cubit.dart';
+import 'package:shop/features/home/presentation/screens/edit_profile_screen.dart';
 import 'package:shop/features/payment/domain/entities/paying.dart';
 import 'package:shop/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:shop/features/payment/presentation/screens/add_order_screen.dart';
 import 'package:shop/features/cart/presentation/screens/cart_screen.dart';
 import 'package:shop/features/cart/presentation/screens/complete_order_screen.dart';
 
-import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
 import 'package:shop/features/home/presentation/screens/home_screen.dart';
 import 'package:shop/features/home/presentation/screens/product_details_screen.dart';
 
@@ -24,20 +30,24 @@ class AppRoutes {
   static const String completeOrderScreen = 'Complete Order Screen';
   static const String signupScreen = 'signup Screen';
   static const String loginScreen = 'login Screen';
+  static const String editProfileScreen = 'Edit profile Screen';
+  static const String adminLoginScreen = 'Admin Login Screen';
+  static const String adminHomeScreen = 'Admin Home Screen';
 
   static Route<dynamic>? routes(RouteSettings route) {
     switch (route.name) {
       case homeScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => ls<ProductCubit>()..getCategories(),
+                  create: (context) => ls<CategoryCubit>()..getAllCategories(),
                   child: const HomeScreen(),
                 ));
       case cartScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) =>
-                      ls<CartCubit>()..getCartOfMeanUser(userId: 1),
+                  create: (context) => ls<CartCubit>()
+                    ..getCartOfMeanUser(
+                        userId: ls<AuthLocalDataSource>().getUserData().id),
                   child: const CartScreen(),
                 ));
       case productDetailsScreen:
@@ -82,6 +92,20 @@ class AppRoutes {
                   create: (context) => ls<AuthCubit>(),
                   child: const LoginScreen(),
                 ));
+      case editProfileScreen:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => ls<AuthCubit>(),
+                  child: const EditProfileScreen(),
+                ));
+      case adminLoginScreen:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => ls<AdminCubit>(),
+                  child: const AdminLoginScreen(),
+                ));
+      case adminHomeScreen:
+        return MaterialPageRoute(builder: (context) => AdminHomeScreen());
     }
     return null;
   }

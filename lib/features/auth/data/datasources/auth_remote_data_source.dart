@@ -5,7 +5,6 @@ import 'package:shop/features/auth/data/datasources/auth_local_data_source.dart'
 import 'package:shop/features/auth/data/models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> getUserData(int id);
   Future<void> addUser(UserModel user);
   Future<void> updateUser(UserModel user);
   Future<void> delteUser(int id);
@@ -19,36 +18,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.httpService});
   @override
   Future<void> addUser(UserModel user) async {
-    await httpService.post(url: EndPoints.addUserUrl, data: user.toJson());
+    await httpService.post(url: EndPoints.signupUrl, data: user.toJson());
   }
 
   @override
   Future<void> delteUser(int id) async {
-    await httpService.patch(url: EndPoints.deleteUserUrl(id: id));
-  }
-
-  @override
-  Future<UserModel> getUserData(int id) async {
-    final result = await httpService.get(url: EndPoints.getUserDataUrl(id: id));
-    return UserModel.fromJson(result);
+    await httpService.post(url: EndPoints.deleteUserUrl, data: {"id": id});
   }
 
   @override
   Future<void> login(String username, String password) async {
-    await httpService.post(url: EndPoints.loginUrl, header: {
-      'Content-Type': 'application/json',
-    }, data: {
-      'username': username,
-      'password': password
-    });
-    await ls<AuthLocalDataSource>().addUserData(await getUserData(1));
+    final result = await httpService.post(
+        url: EndPoints.loginUrl,
+        data: {'email': username, 'password': password});
+    await ls<AuthLocalDataSource>().addUserData(UserModel.fromJson(result));
     await ls<AuthLocalDataSource>().saveLogin();
   }
 
   @override
   Future<void> updateUser(UserModel user) async {
-    await httpService.post(
-        url: EndPoints.updateUserUrl(id: user.id), data: user.toJson());
+    await httpService.post(url: EndPoints.updateUserUrl, data: user.toJson());
+    await ls<AuthLocalDataSource>().addUserData(user);
   }
 
   @override

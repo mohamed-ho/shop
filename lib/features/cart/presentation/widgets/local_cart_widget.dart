@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop/config/routes/app_routes.dart';
-import 'package:shop/features/payment/data/datasources/paypal_payment.dart';
-import 'package:shop/features/payment/data/datasources/wallet_payment.dart';
 import 'package:shop/dependent_enjection.dart';
 import 'package:shop/features/cart/presentation/cubit/cubit/local_cart_cubit.dart';
+import 'package:shop/features/cart/presentation/widgets/empty_cart_widget.dart';
 import 'package:shop/features/cart/presentation/widgets/get_product_widget.dart';
 import 'package:shop/features/cart/presentation/widgets/product_in_local_cart.dart';
 
@@ -27,18 +25,7 @@ class LocalCartWidget extends StatelessWidget {
             return ErrorWidget(StateError);
           } else if (state is LocalCartGetedState) {
             if (state.localCart == null) {
-              return Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/empty.png',
-                    width: .5.sw,
-                    height: .5.sw,
-                  ),
-                  const Text('There are no Items in The cart')
-                ],
-              ));
+              return const EmptyCartWidget();
             } else {
               return RefreshIndicator(
                 onRefresh: () async =>

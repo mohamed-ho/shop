@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shop/core/constant/app_colors.dart';
 import 'package:shop/core/enum/payment_enum.dart';
+import 'package:shop/dependent_enjection.dart';
+import 'package:shop/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shop/features/payment/domain/entities/paying.dart';
 import 'package:shop/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:shop/features/payment/presentation/widgets/custom_web_view.dart';
 import 'package:shop/features/payment/presentation/widgets/pay_icon_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class AddOrderScreen extends StatefulWidget {
   const AddOrderScreen({super.key, required this.paying});
@@ -18,9 +20,8 @@ class AddOrderScreen extends StatefulWidget {
 class _AddOrderScreenState extends State<AddOrderScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  bool isLoading = true;
-  bool pageLoading = true;
   late String pageUrl;
+  bool isLoading = true;
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -50,16 +51,13 @@ class _AddOrderScreenState extends State<AddOrderScreen>
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.h),
-              child: TabBar(
-                overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-                controller: tabController,
-                onTap: (value) async {
-                  if (pageLoading) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('please wait until end loading'),
-                      backgroundColor: AppColors.mainAppColor,
-                    ));
-                  } else {
+              child: Skeletonizer(
+                enabled: isLoading,
+                child: TabBar(
+                  overlayColor:
+                      const WidgetStatePropertyAll(Colors.transparent),
+                  controller: tabController,
+                  onTap: (value) async {
                     switch (value) {
                       case 0:
                         {
@@ -76,20 +74,20 @@ class _AddOrderScreenState extends State<AddOrderScreen>
                           setState(() {});
                         }
                     }
-                  }
-                },
-                indicatorColor: Colors.transparent,
-                dividerColor: Colors.transparent,
-                tabs: [
-                  PayIconWidget(
-                    image: 'assets/images/card.png',
-                    isChoosed: tabController.index == 0,
-                  ),
-                  PayIconWidget(
-                    image: 'assets/images/wallet.png',
-                    isChoosed: tabController.index == 1,
-                  ),
-                ],
+                  },
+                  indicatorColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
+                  tabs: [
+                    PayIconWidget(
+                      image: 'assets/images/card.png',
+                      isChoosed: tabController.index == 0,
+                    ),
+                    PayIconWidget(
+                      image: 'assets/images/wallet.png',
+                      isChoosed: tabController.index == 1,
+                    ),
+                  ],
+                ),
               ),
             ),
             BlocListener<PaymentCubit, PaymentState>(
@@ -101,7 +99,7 @@ class _AddOrderScreenState extends State<AddOrderScreen>
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              title: const Text('Eror'),
+                              title: const Text('Error'),
                               content: Text(state.message),
                               actions: [
                                 ElevatedButton(
@@ -151,10 +149,9 @@ class _AddOrderScreenState extends State<AddOrderScreen>
                   }
                 },
                 child: isLoading
-                    ? const Expanded(
-                        child: Center(child: CircularProgressIndicator()),
-                      )
-                    : Expanded(
+                    ? const Center(child: CircularProgressIndicator())
+                    : BlocProvider(
+                        create: (context) => ls<CartCubit>(),
                         child: CustomWebView(
                           key: Key(pageUrl),
                           pageUrl: pageUrl,

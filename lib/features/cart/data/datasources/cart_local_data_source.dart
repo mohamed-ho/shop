@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop/core/constant/shared_preference_keys.dart';
 import 'package:shop/core/failure/failure.dart';
+import 'package:shop/dependent_enjection.dart';
+import 'package:shop/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:shop/features/cart/data/models/cart_model.dart';
 import 'package:shop/features/cart/data/models/cart_product_model.dart';
 
@@ -21,20 +23,21 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> addToLocalCart(CartProductModel cartProdutModel) async {
     try {
-      final localCart =
-          sharedPreferences.getString(SharedPreferenceKeys.localCartKey);
+      final localCart = sharedPreferences
+          .getString(ls<AuthLocalDataSource>().getUserData().email);
       late bool result;
       if (localCart != null) {
         CartModel cartModel = CartModel.fromJson(jsonDecode(localCart));
         cartModel.cartProducts.add(cartProdutModel);
         result = await sharedPreferences.setString(
-            SharedPreferenceKeys.localCartKey, jsonEncode(cartModel.toJson()));
+            ls<AuthLocalDataSource>().getUserData().email,
+            jsonEncode(cartModel.toJson()));
       } else {
         result = await sharedPreferences.setString(
-            SharedPreferenceKeys.localCartKey,
+            ls<AuthLocalDataSource>().getUserData().email,
             jsonEncode(CartModel(
                 id: 1,
-                userId: 1,
+                userId: ls<AuthLocalDataSource>().getUserData().id,
                 date: DateTime.now(),
                 cartProducts: [cartProdutModel]).toJson()));
       }
@@ -49,18 +52,18 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> deleteItemFromLocalCart(int index) async {
     try {
-      final localCart =
-          sharedPreferences.getString(SharedPreferenceKeys.localCartKey);
+      final localCart = sharedPreferences
+          .getString(ls<AuthLocalDataSource>().getUserData().email);
       late bool result;
       if (localCart != null) {
         CartModel cartModel = CartModel.fromJson(jsonDecode(localCart));
         if (cartModel.cartProducts.length < 2) {
-          result =
-              await sharedPreferences.remove(SharedPreferenceKeys.localCartKey);
+          result = await sharedPreferences
+              .remove(ls<AuthLocalDataSource>().getUserData().email);
         } else {
           cartModel.cartProducts.removeAt(index);
           result = await sharedPreferences.setString(
-              SharedPreferenceKeys.localCartKey,
+              ls<AuthLocalDataSource>().getUserData().email,
               jsonEncode(cartModel.toJson()));
         }
       } else {
@@ -77,18 +80,19 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> deleteLocalCart() async {
     try {
-      List<String>? cartItem =
-          sharedPreferences.getStringList(SharedPreferenceKeys.localCartKey);
-      late bool result;
-      if (cartItem != null) {
-        result =
-            await sharedPreferences.remove(SharedPreferenceKeys.localCartKey);
-      } else {
-        return;
-      }
-      result
-          ? 0
-          : throw Exception(CachFailure(message: 'Deleting process is failed'));
+      // List<String>? cartItem =
+      //     sharedPreferences.getStringList(ls<AuthLocalDataSource>().getUserData().email);
+      // late bool result;
+      // if (cartItem != null) {
+      //   result =
+      await sharedPreferences
+          .remove(ls<AuthLocalDataSource>().getUserData().email);
+      // } else {
+      //   return;
+      // }
+      // result
+      //     ? 0
+      //     : throw Exception(CachFailure(message: 'Deleting process is failed'));
     } catch (e) {
       throw Exception(CachFailure(message: e.toString()));
     }
@@ -97,8 +101,8 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   CartModel? getLocalCart() {
     try {
-      final localCart =
-          sharedPreferences.getString(SharedPreferenceKeys.localCartKey);
+      final localCart = sharedPreferences
+          .getString(ls<AuthLocalDataSource>().getUserData().email);
       if (localCart != null) {
         return CartModel.fromJson(jsonDecode(localCart));
       } else {
@@ -112,8 +116,8 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> update(CartProductModel cartProduct, int index) async {
     try {
-      final localCart =
-          sharedPreferences.getString(SharedPreferenceKeys.localCartKey);
+      final localCart = sharedPreferences
+          .getString(ls<AuthLocalDataSource>().getUserData().email);
       late bool result;
       if (localCart != null) {
         CartModel cartModel = CartModel.fromJson(jsonDecode(localCart));
@@ -121,7 +125,8 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
         cartModel.cartProducts[index] = cartProduct;
 
         result = await sharedPreferences.setString(
-            SharedPreferenceKeys.localCartKey, jsonEncode(cartModel.toJson()));
+            ls<AuthLocalDataSource>().getUserData().email,
+            jsonEncode(cartModel.toJson()));
       } else {
         throw Exception(CachFailure(message: 'No product in Cart'));
       }

@@ -5,12 +5,11 @@ import 'package:shop/features/home/data/models/product_model.dart';
 
 class ProductInOldCart extends StatelessWidget {
   const ProductInOldCart(
-      {Key? key,
+      {super.key,
       required this.product,
       required this.quantity,
       this.height,
-      this.widht})
-      : super(key: key);
+      this.widht});
   final ProductModal product;
   final int quantity;
   final double? height;
@@ -37,8 +36,8 @@ class ProductInOldCart extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     product.title.length > 15
@@ -115,13 +114,14 @@ class ProductInOldCart extends StatelessWidget {
           ),
         ),
         Positioned(
-            right: 10.h,
-            top: -5.h,
-            child: Image.network(
-              product.image,
-              height: 50.h,
-              width: 50.h,
-            )),
+          right: 10.h,
+          top: -5.h,
+          child: Image.network(
+            product.image,
+            height: 50.h,
+            width: 50.h,
+          ),
+        ),
       ],
     );
   }

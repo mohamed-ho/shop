@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop/core/enum/payment_enum.dart';
 import 'package:shop/core/failure/failure.dart';
-import 'package:shop/features/auth/domain/entities/user.dart';
-import 'package:shop/features/home/data/models/product_model.dart';
 import 'package:shop/features/payment/data/datasources/cart_payment.dart';
 import 'package:shop/features/payment/data/datasources/paypal_payment.dart';
 import 'package:shop/features/payment/data/datasources/wallet_payment.dart';
@@ -15,13 +13,14 @@ class PaymentRepositoryImpl implements PaymentRepository {
     try {
       String result = '';
       if (paying.paymentType == PaymentEnum.card) {
-        result = await CardPayment().pay(amount: paying.price, currency: 'EGP');
+        result = await CardPayment()
+            .pay(amount: paying.price, currency: 'EGP', user: paying.user);
       } else if (paying.paymentType == PaymentEnum.wallet) {
-        result =
-            await WalletPayment().pay(amount: paying.price, currency: 'EGP');
+        result = await WalletPayment()
+            .pay(amount: paying.price, currency: 'EGP', user: paying.user);
       } else if (paying.paymentType == PaymentEnum.paypal) {
-        result =
-            await PaypalPayment().pay(amount: paying.price, currency: 'EGP');
+        result = await PaypalPayment()
+            .pay(amount: paying.price, currency: 'EGP', user: paying.user);
       } else {
         return Left(ServerFailure(
             message:

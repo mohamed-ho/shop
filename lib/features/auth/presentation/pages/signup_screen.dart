@@ -7,6 +7,7 @@ import 'package:shop/features/auth/domain/entities/name.dart';
 import 'package:shop/features/auth/domain/entities/user.dart';
 import 'package:shop/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:shop/features/auth/presentation/widgets/address_signup_bloc_widget.dart';
+
 import 'package:shop/features/auth/presentation/widgets/email_data_widget.dart';
 import 'package:shop/features/auth/presentation/widgets/name_signup_bloc_widget.dart';
 import 'package:shop/features/auth/presentation/widgets/aready_have_account_widget.dart';
@@ -27,6 +28,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController cityCotroller = TextEditingController();
   final TextEditingController streetCotroller = TextEditingController();
   final TextEditingController houseNumberCotroller = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
@@ -38,6 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
     cityCotroller.dispose();
     streetCotroller.dispose();
     houseNumberCotroller.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
@@ -95,6 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     emailController: emailCotroller,
                     passwordController: passwordCotroller,
                     userNameController: userNameCotroller,
+                    phoneController: phoneController,
                   ),
                   NameSignupBlocWidget(
                       firstNameController: firstNameCotroller,
@@ -122,7 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       firstName: firstNameCotroller.text,
                                       lastName: lastNameCotroller.text),
                                   password: passwordCotroller.text,
-                                  phone: '322334343434',
+                                  phone: phoneController.text,
                                   username: userNameCotroller.text));
                         }
                       },

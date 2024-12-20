@@ -4,7 +4,7 @@ import 'package:shop/features/home/data/models/product_model.dart';
 import 'package:shop/features/home/data/models/rate_model.dart';
 import 'package:shop/features/home/presentation/cubit/cubit/product_cubit.dart';
 import 'package:shop/features/home/presentation/widgets/custom_grid_view.dart';
-import 'package:shop/widget/cardShop.dart';
+import 'package:shop/features/home/presentation/widgets/cardShop.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductInCategoryWidget extends StatelessWidget {
@@ -38,7 +38,7 @@ final list = [
       rate: RateModel(rate: 3.3, count: 323),
       price: 33.3,
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -46,7 +46,7 @@ final list = [
       title: 'dfdsfsdf dsf sdf sdf ',
       price: 33.3,
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -54,7 +54,7 @@ final list = [
       title: 'dfdsfsdf dsf sdf sdf ',
       price: 33.3,
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -62,7 +62,7 @@ final list = [
       title: 'dfdsfsdf dsf sdf sdf ',
       price: 33.3,
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -70,7 +70,7 @@ final list = [
       price: 33.3,
       rate: RateModel(rate: 3.3, count: 323),
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -78,7 +78,7 @@ final list = [
       price: 33.3,
       rate: RateModel(rate: 3.3, count: 323),
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -86,7 +86,7 @@ final list = [
       price: 33.3,
       rate: RateModel(rate: 3.3, count: 323),
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
   ProductModal(
       id: 1,
@@ -94,6 +94,6 @@ final list = [
       price: 33.3,
       rate: RateModel(rate: 3.3, count: 323),
       description: 'dsfsdfsdaf sdf sdf sd fasdf s',
-      category: 'category',
+      category: 1,
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
 ];

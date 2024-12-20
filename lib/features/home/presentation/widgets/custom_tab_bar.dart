@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop/core/constant/app_colors.dart';
+import 'package:shop/features/home/domain/entities/category.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({
     super.key,
     required this.onTap,
-    required this.text,
+    required this.category,
     required this.isSelected,
   });
-  final String text;
+  final ProductCategory category;
   final Function()? onTap;
   final bool isSelected;
 
@@ -27,18 +29,18 @@ class CustomTabBar extends StatelessWidget {
                   visible: isSelected,
                   child: CircleAvatar(
                     radius: 30.w,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: AppColors.mainAppColor,
                   ),
                 ),
                 CircleAvatar(
                   radius: 27.w,
-                  backgroundImage: AssetImage('assets/images/$text.jpg'),
+                  backgroundImage: NetworkImage(category.image),
                 ),
               ],
             ),
             Text(
               textAlign: TextAlign.center,
-              text,
+              category.name,
               style: const TextStyle(fontSize: 16),
             ),
           ],

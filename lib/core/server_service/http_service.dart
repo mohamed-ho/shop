@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:shop/core/failure/exception_handler.dart';
 import 'package:shop/core/failure/failure.dart';
@@ -11,11 +12,11 @@ class HttpService implements ServerService {
       {required String url, Map<String, String>? header}) async {
     try {
       final response = await http.get(Uri.parse(url), headers: header);
+
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw ServerFailure(
-            message: ExceptionHandler.getErrorMessage(response.statusCode));
+        throw ServerFailure(message: jsonDecode(response.body)['message']);
       }
     } catch (e) {
       throw ServerFailure(message: ExceptionHandler.getErrorMessage(e));
@@ -33,8 +34,7 @@ class HttpService implements ServerService {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw ServerFailure(
-            message: ExceptionHandler.getErrorMessage(response.statusCode));
+        throw ServerFailure(message: jsonDecode(response.body)['message']);
       }
     } catch (e) {
       throw ServerFailure(message: ExceptionHandler.getErrorMessage(e));
@@ -47,20 +47,15 @@ class HttpService implements ServerService {
       required Map<String, dynamic> data,
       Map<String, String>? header}) async {
     try {
-      print(data);
       final response = await http.post(Uri.parse(url),
           headers: header, body: jsonEncode(data));
+
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        print(
-            'you are in else ${response.statusCode}====================================');
-        throw Exception(ServerFailure(
-            message: ExceptionHandler.getErrorMessage(response.statusCode)));
+        throw ServerFailure(message: jsonDecode(response.body)['message']);
       }
     } catch (e) {
-      print('you are in else $e====================================');
-
       throw ServerFailure(message: ExceptionHandler.getErrorMessage(e));
     }
   }
@@ -76,8 +71,7 @@ class HttpService implements ServerService {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw ServerFailure(
-            message: ExceptionHandler.getErrorMessage(response.statusCode));
+        throw ServerFailure(message: jsonDecode(response.body)['message']);
       }
     } catch (e) {
       throw ServerFailure(message: ExceptionHandler.getErrorMessage(e));

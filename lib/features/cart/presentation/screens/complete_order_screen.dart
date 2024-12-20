@@ -28,7 +28,7 @@ class CompleteOrderScreen extends StatelessWidget {
       body: Column(
         children: [
           Image.asset(
-            'assets/images/empty.png',
+            'assets/images/shop.png',
             width: 1.sw,
             height: .6.sh,
           ),

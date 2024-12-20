@@ -14,10 +14,11 @@ import 'package:shop/features/cart/domain/usecases/delete_local_cart_usecase.dar
 import 'package:shop/features/cart/domain/usecases/get_all_cart_items_usecase.dart';
 import 'package:shop/features/cart/domain/usecases/get_cart_items_in_date_range_usecase.dart';
 import 'package:shop/features/cart/domain/usecases/get_cart_items_of_mean_user_usecase.dart';
-import 'package:shop/features/cart/domain/usecases/get_limit_cart_item_usecase.dart';
+
 import 'package:shop/features/cart/domain/usecases/get_local_cart_usecase.dart';
 import 'package:shop/features/cart/domain/usecases/get_single_cart_item_usecase.dart';
-import 'package:shop/features/cart/domain/usecases/update_cart_item_usecase.dart';
+import 'package:shop/features/cart/domain/usecases/get_user_carts_in_range_date.dart';
+
 import 'package:shop/features/cart/domain/usecases/update_from_local_cart_usecase.dart';
 import 'package:shop/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shop/features/cart/presentation/cubit/cubit/local_cart_cubit.dart';
@@ -25,14 +26,14 @@ import 'package:shop/features/cart/presentation/cubit/cubit/local_cart_cubit.dar
 class CartDependentEnjection {
   init() {
     ls.registerFactory(() => CartCubit(
-        addNewCartItemUsecase: ls(),
-        deleteCartItemUsecase: ls(),
-        getAllCartItemsUsecase: ls(),
-        getCartItemsInDateRangeUsecase: ls(),
-        getCartItemsOfMeanUserUsecase: ls(),
-        getLimitCartItemUsecase: ls(),
-        getSingleCartItemUsecase: ls(),
-        updateCartItemUsecase: ls()));
+          addNewCartItemUsecase: ls(),
+          deleteCartItemUsecase: ls(),
+          getAllCartItemsUsecase: ls(),
+          getCartItemsInDateRangeUsecase: ls(),
+          getCartItemsOfMeanUserUsecase: ls(),
+          getUserCartsInRangeDate: ls(),
+          getSingleCartItemUsecase: ls(),
+        ));
     ls.registerFactory(() => LocalCartCubit(
         addToLocalCartUsecase: ls(),
         deleteItemFromLocalCartUsecase: ls(),
@@ -49,10 +50,9 @@ class CartDependentEnjection {
     ls.registerLazySingleton(
         () => GetCartItemsOfMeanUserUsecase(cartRepository: ls()));
     ls.registerLazySingleton(
-        () => GetLimitCartItemUsecase(cartRepository: ls()));
+        () => GetUserCartsInRangeDate(cartRepository: ls()));
     ls.registerLazySingleton(
         () => GetSingleCartItemUsecase(cartRepository: ls()));
-    ls.registerLazySingleton(() => UpdateCartItemUsecase(cartRepository: ls()));
     ls.registerLazySingleton(
         () => AddToLocalCartUsecase(localCartRepository: ls()));
     ls.registerLazySingleton(

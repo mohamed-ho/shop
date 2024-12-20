@@ -31,16 +31,6 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User>> getUserData(int id) async {
-    try {
-      final result = await authRemoteDataSource.getUserData(id);
-      return Right(result);
-    } on ServerFailure catch (e) {
-      return Left(e);
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> login(String email, String password) async {
     try {
       final result = await authRemoteDataSource.login(email, password);

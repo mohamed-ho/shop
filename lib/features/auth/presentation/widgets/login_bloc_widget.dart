@@ -18,15 +18,17 @@ class LoginBlocWidget extends StatelessWidget {
     return Column(
       children: [
         CustomTextFormField(
-            hintText: 'User Name',
-            labelText: 'Please Enter User Name',
+            hintText: 'email',
+            labelText: 'Please Enter User email',
             suffixIcon: const Icon(
-              Icons.person,
+              Icons.alternate_email,
               color: Colors.grey,
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'please enter user name';
+                return "please enter you email";
+              } else if (!value.contains('@') || !value.contains('.')) {
+                return 'please enter valid email';
               }
               return null;
             },

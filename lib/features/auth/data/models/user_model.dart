@@ -31,7 +31,7 @@ class UserModel extends User {
       'password': password,
       'phone': phone,
       'username': username,
-      'id': 1,
+      'id': id,
     };
   }
 

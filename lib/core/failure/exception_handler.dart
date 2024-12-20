@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:shop/core/failure/failure.dart';
+
 class ExceptionHandler {
   // Function to get error message based on status code or exception
   static String getErrorMessage(dynamic error) {
@@ -36,6 +38,8 @@ class ExceptionHandler {
       } else {
         return "Unexpected Error: ${error.toString()}";
       }
+    } else if (error is ServerFailure) {
+      return error.getMessage();
     } else {
       return "Unknown Error: An unexpected error occurred.";
     }

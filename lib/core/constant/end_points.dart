@@ -1,75 +1,46 @@
-import 'package:intl/intl.dart';
-
 class EndPoints {
-  static const String baseUrl = "https://fakestoreapi.com/";
+  static const String baseUrl = "http://10.0.2.2/shop/";
+
+  // products URLs
   static const String productUrl = "${baseUrl}products/";
-  static const String getAllProductUrl = "${baseUrl}products";
+  static const String getAllProductUrl = "${productUrl}getAll.php";
+  static const String addNewProductUrl = "${productUrl}add.php";
+  static String deleteProductUrl = "${productUrl}delete.php";
+  static String updateProductUrl = '${productUrl}update.php';
+  static String getSingleProductUrl = '${productUrl}getSingle.php';
 
-  static const String addNewProductUrl = "${baseUrl}products";
-  static const String getCategoriesUrl = "${productUrl}categories";
+  static String getProductInCategoryUrl = "${productUrl}getByCategory.php";
 
-  static String getSingleProductUrl({required int id}) {
-    return "$productUrl$id";
-  }
+  // categories URLs
+  static const String categoriesUrl = "${baseUrl}categories/";
+  static const String getCategoriesUrl = "${categoriesUrl}getCategories.php";
+  static const String addCategoryUrl = "${categoriesUrl}addCategory.php";
+  static const String updateCategoryUrl = "${categoriesUrl}updaetCategory.php";
+  static const String deleteCategoryUrl = "${categoriesUrl}deleteCategory.php";
 
-  static String getLimitProductUrl({required int numberOrProduct}) {
-    return "$productUrl?limit=$numberOrProduct";
-  }
-
-  static String getProductInCategoryUrl({required String category}) {
-    return "${productUrl}category/$category";
-  }
-
-  static String updateProductUrl({required int id}) {
-    return "$productUrl$id";
-  }
-
-  static String deleteProductUrl({required int id}) {
-    return "$productUrl$id";
-  }
-
+  // carts URLs
   static const String cartUrl = "${baseUrl}carts/";
-  static const String addCartUrl = "${baseUrl}carts";
-  static const String getAllCartUrl = "${baseUrl}carts";
-  static String getSingleCartUrl({required int id}) {
-    return "$cartUrl$id";
-  }
+  static const String addCartUrl = "${cartUrl}addcart.php";
+  static const String getAllCartUrl = "${cartUrl}getAll.php";
+  static const String deleteCartUrl = "${cartUrl}deleteCart.php";
+  static const String getInDateRangeUrl = "${cartUrl}getInDateRange.php";
+  static const String getSingleCartUrl = "${cartUrl}getSingle.php";
+  static const String getUserCartsUrl = "${cartUrl}getUserCart.php";
+  static const String getUserCartsInRangeDate =
+      "${cartUrl}getUserCartsInRangeDate.php";
 
-  static String getLimitCartUrl({required int numberOrProduct}) {
-    return "$cartUrl?limit=$numberOrProduct";
-  }
+  // user URLs
+  static const String userURL = "${baseUrl}users/";
+  static const String signupUrl = "${userURL}signup.php";
+  static const String loginUrl = "${userURL}login.php";
+  static const String deleteUserUrl = "${userURL}delete.php";
+  static const String updateUserUrl = "${userURL}update.php";
 
-  static String getCartInRangeDateUrl(
-      {required DateTime start, required DateTime end}) {
-    return "$addCartUrl?startdate=${DateFormat('yyyy-MM-dd').format(start)}&enddate=${DateFormat('yyyy-MM-dd').format(end)}";
-  }
-
-  static String getCartOfMeanUserUrl({required int userId}) {
-    return "${cartUrl}user/$userId";
-  }
-
-  static String updateCartUrl({required int id}) {
-    return "$cartUrl$id";
-  }
-
-  static String deleteCartUrl({required int id}) {
-    return "$cartUrl$id";
-  }
-
-  static const String userUrl = "${baseUrl}users/";
-  static String getUserDataUrl({required int id}) {
-    return "$userUrl$id";
-  }
-
-  static const String addUserUrl = "${baseUrl}users";
-
-  static String updateUserUrl({required int id}) {
-    return "$userUrl$id";
-  }
-
-  static String deleteUserUrl({required int id}) {
-    return "$userUrl$id";
-  }
-
-  static const String loginUrl = "${baseUrl}auth/login";
+  // admin URLs
+  static const String adminURL = "${baseUrl}admin/";
+  static const String adminLoginUrl = "${adminURL}login.php";
+  static const String adminAddAccountUrl = "${adminURL}addAccount.php";
+  static const String adminUpdateAccontUrl = "${adminURL}updateAccount.php";
+  static const String adminDeleteAccontUrl = "${adminURL}deleteAccount.php";
+  static const String getAllAdminsUrl = "${adminURL}getAllAdmins.php";
 }
