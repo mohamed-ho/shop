@@ -15,7 +15,7 @@ class EndPoints {
   static const String categoriesUrl = "${baseUrl}categories/";
   static const String getCategoriesUrl = "${categoriesUrl}getCategories.php";
   static const String addCategoryUrl = "${categoriesUrl}addCategory.php";
-  static const String updateCategoryUrl = "${categoriesUrl}updaetCategory.php";
+  static const String updateCategoryUrl = "${categoriesUrl}updateCategory.php";
   static const String deleteCategoryUrl = "${categoriesUrl}deleteCategory.php";
 
   // carts URLs
@@ -35,6 +35,7 @@ class EndPoints {
   static const String loginUrl = "${userURL}login.php";
   static const String deleteUserUrl = "${userURL}delete.php";
   static const String updateUserUrl = "${userURL}update.php";
+  static const String getUserDataUrl = "${userURL}getUserData.php";
 
   // admin URLs
   static const String adminURL = "${baseUrl}admin/";
@@ -43,4 +44,11 @@ class EndPoints {
   static const String adminUpdateAccontUrl = "${adminURL}updateAccount.php";
   static const String adminDeleteAccontUrl = "${adminURL}deleteAccount.php";
   static const String getAllAdminsUrl = "${adminURL}getAllAdmins.php";
+
+  // order URLs
+  static const String orderUrl = "${baseUrl}orders/";
+  static const String getShippedOrderUrl = "${orderUrl}getShipped.php";
+  static const String getUnShippedOrderUrl = "${orderUrl}getNotShipped.php";
+  static const String shipeOrderUrl = "${orderUrl}makeShipped.php";
+  static const String getOrderDetailsUrl = "${orderUrl}getOrderDetails.php";
 }

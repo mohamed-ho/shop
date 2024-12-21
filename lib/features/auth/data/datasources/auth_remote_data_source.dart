@@ -9,6 +9,7 @@ abstract class AuthRemoteDataSource {
   Future<void> updateUser(UserModel user);
   Future<void> delteUser(int id);
   Future<void> login(String email, String password);
+  Future<UserModel> getUserData(int id);
   Future<void> logout();
 }
 
@@ -44,5 +45,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> logout() async {
     await ls<AuthLocalDataSource>().logout();
+  }
+
+  @override
+  Future<UserModel> getUserData(int id) async {
+    final result =
+        await httpService.post(url: EndPoints.getUserDataUrl, data: {'id': id});
+    return UserModel.fromJson(result);
   }
 }

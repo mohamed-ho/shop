@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeTabsWidget extends StatelessWidget {
-  const HomeTabsWidget({super.key, required this.tabController});
+class HomeTabsBarWidget extends StatelessWidget {
+  const HomeTabsBarWidget({super.key, required this.tabController});
   final TabController tabController;
   @override
   Widget build(BuildContext context) {

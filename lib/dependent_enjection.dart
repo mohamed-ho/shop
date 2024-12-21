@@ -6,6 +6,7 @@ import 'package:shop/features/admin/admin_enjection.dart';
 import 'package:shop/features/auth/auth_enjection.dart';
 import 'package:shop/features/cart/cart_dependent_enjection.dart';
 import 'package:shop/features/home/home_dependent_enjection.dart';
+import 'package:shop/features/orders/order_enjection.dart';
 import 'package:shop/features/payment/payment_enjection.dart';
 
 final ls = GetIt.instance;
@@ -20,5 +21,6 @@ class DependentEnjection {
     PaymentEnjection().init();
     AuthEnjection().init();
     AdminEnjection().init();
+    OrderEnjection().init();
   }
 }

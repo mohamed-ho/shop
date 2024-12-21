@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop/config/routes/app_routes.dart';
 import 'package:shop/config/themes/app_theme.dart';
 import 'package:shop/dependent_enjection.dart';
-import 'package:shop/features/auth/data/datasources/auth_local_data_source.dart';
-import 'package:shop/features/cart/data/datasources/cart_local_data_source.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

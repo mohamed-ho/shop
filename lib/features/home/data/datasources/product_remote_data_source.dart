@@ -28,7 +28,6 @@ class ProductRemoteDataSourceImple implements ProductRemoteDataSource {
   @override
   Future<List<ProductModal>> getAllProducts() async {
     final result = await serverService.get(url: EndPoints.getAllProductUrl);
-    print("$result================================");
     return List<ProductModal>.from(result.map((e) => ProductModal.fromJson(e)));
   }
 

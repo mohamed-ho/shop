@@ -2,13 +2,13 @@ import 'package:shop/core/constant/productName.dart';
 import 'package:shop/features/home/data/models/rate_model.dart';
 
 class ProductModal {
-  final int id;
-  final String title;
-  final double price;
-  final String description;
-  final int category;
-  final String image;
-  final RateModel? rate;
+  int id;
+  String title;
+  double price;
+  String description;
+  int category;
+  String image;
+  RateModel? rate;
   ProductModal(
       {required this.id,
       required this.title,
@@ -31,14 +31,24 @@ class ProductModal {
             : RateModel.fromJson(jsonData['rating']));
   }
 
+  factory ProductModal.clone(ProductModal product) {
+    return ProductModal(
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        image: product.image);
+  }
   toJson() {
     return {
+      "id": id,
       "title": title,
       "price": price,
       "description": description,
       "image": image,
       "category": category,
-      "rating": rate?.tojson(),
+      "rating": rate!.tojson(),
     };
   }
 }
