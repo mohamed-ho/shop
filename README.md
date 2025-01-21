@@ -54,15 +54,6 @@
    - Use `flutter run` to launch the app on your device or emulator.
 
 
-## Contributing
-
-Contributions are welcome! If you'd like to improve this project, please:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/YourFeatureName`).
-3. Commit your changes (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/YourFeatureName`).
-5. Open a Pull Request.
-
 ---
 
 ## License
@@ -75,5 +66,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 For any inquiries or feedback, please contact:
 - **Name**: Mohamed Hosny
-- **LinkedIn**: [Insert LinkedIn Profile Link]
-- **Email**: [Insert Email Address]
+- **LinkedIn**: www.linkedin.com/in/mohamed-hosny-hassan
+- **Email**: engmohosny110@gmail.com
